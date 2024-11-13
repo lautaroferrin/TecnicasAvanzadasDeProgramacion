@@ -1,0 +1,56 @@
+{% extends './layout.html' %}
+
+{% block title %}Nuevo Turno - Masajes{% endblock %}
+
+{% block body %}
+<h1>{{ data.titulo }}</h1>
+<form action="{{ url_for('appturno.sacarmasajes') }}">
+    <h2>
+        {{ data.duracion }}
+    </h2>
+</form>
+{% if not todopersonal %}
+<form action="{{ url_for('appturno.listar_personal') }}" method="get">
+    <h2>
+        {{ data.personal }}
+        <input type="submit" value="Ver personal">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <p style="color:red">{{ messages[-1] }}</p>
+            {% endif %}
+        {% endwith %}
+    </h2>
+</form>
+{% endif %}
+
+{% if todopersonal %}
+<h2>
+    {{ data.personal }}
+    <form action="{{ url_for('appturno.calendario') }}" method="get">
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nombre</th>
+                    <th>Calificacion Promedio</th>
+                    <th>Seleccionar</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for personal in todopersonal %}
+                <tr>
+                    <td>{{ personal.id }}</td>
+                    <td>{{ personal.nombre }}</td>
+                    <td>{{ personal.calificacion_promedio }}</td>
+                    <td>
+                        <input type="radio" name="id_personal" value="{{ personal.id }}">
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <input type="submit" value="Seleccionar">
+    </form>
+</h2>
+{% endif %}
+{% endblock %}

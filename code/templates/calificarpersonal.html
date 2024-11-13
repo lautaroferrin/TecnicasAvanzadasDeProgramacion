@@ -1,0 +1,17 @@
+{% extends './layout.html' %}
+
+{% block title %}Calificar personal{% endblock %}
+
+{% block body %}
+<h1>{{ data.titulo }}</h1>
+<form action="{{ url_for('appusuario.personalcalificado') }}" method="post">
+    <input type="hidden" name="id_personal" value="{{ data.id_personal }}">
+    <ul>
+        <button type="submit" name="calificacion" value="1" style="color: red;">1</button>
+        <button type="submit" name="calificacion" value="2" style="color: rgb(255, 69, 69);">2</button>
+        <button type="submit" name="calificacion" value="3" style="color: orange;">3</button>
+        <button type="submit" name="calificacion" value="4" style="color: lightgreen;">4</button>
+        <button type="submit" name="calificacion" value="5" style="color: green;">5</button>
+    </ul>
+</form>
+{% endblock %}

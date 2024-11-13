@@ -1,0 +1,20 @@
+{% extends './layout.html' %}
+
+{% block title %}Calendario{% endblock %}
+
+{% block body %}
+<h1>Calendario</h1>
+<p>Fecha del turno: {{ data.fecha }}</p>
+<form action="{{ url_for('appturno.confirmarmasajes') }}" method="post">
+    <ul>
+        {% for hora in data.horas %}
+        <li>
+            <input type="radio" name="hora" value="{{ hora }}"> {{ hora }}
+        </li>
+        {% endfor %}
+    </ul>
+    <input type="hidden" name="fecha" value="{{ data.fecha }}">
+    <input type="hidden" name="id_personal" value="{{ request.args.get('id_personal') }}">
+    <button type="submit">Confirmar</button>
+</form>
+{% endblock %}

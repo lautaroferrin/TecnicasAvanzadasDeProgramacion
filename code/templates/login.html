@@ -1,0 +1,44 @@
+{% extends './layout.html' %}
+
+{% block title %}{{ data.titulo }}{% endblock %}
+
+{% block body %}
+<h1>{{ data.titulo }}</h1>
+<h1>Crear Usuario:</h1>
+<form action="{{ url_for('appusuario.registrarusuario') }}" method="post">
+    <h2>
+        {{ data.nombre }}
+        <input type="text" id="nombre" name="nombre" required>
+    </h2>
+    <h2>
+        {{ data.mail }}
+        <input type="email" id="mail" name="mail" required>
+    </h2>
+    <h2>
+        {{ data.contraseña }}
+        <input type="password" id="contraseña" name="contraseña" required>
+    </h2>
+    <h2>
+        <button type="submit">Crear</button>
+    </h2>
+</form>
+<h1>Ingresar:</h1>
+<form action="{{ url_for('appusuario.ingresarusuario') }}" method="post">
+    <h2>
+        {{ data.mail }}
+        <input type="email" id="mail2" name="mail2" required>
+    </h2>
+    <h2>
+        {{ data.contraseña }}
+        <input type="password" id="contraseña2" name="contraseña2" required>
+    </h2>
+    <h2>
+        <button type="submit">Ingresar</button>
+    </h2>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <p style="color:red">{{ messages[-1] }}</p>
+        {% endif %}
+    {% endwith %}
+</form>
+{% endblock %}

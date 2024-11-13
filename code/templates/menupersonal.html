@@ -1,0 +1,76 @@
+{% extends './layout.html' %}
+
+{% block title %}{{ data.titulo }}{% endblock %}
+
+{% block body %}
+<h1>{{ data.titulo }}</h1>
+<h1>Menu Personal:</h1>
+<form action="{{ url_for('apppersonal.menupersonal') }}">
+    <h2>
+        {{ data.verTurnos }}
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Tipo</th>
+                    <th>Fecha</th>
+                    <th>ID Usuario</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for turno in data.turnos %}
+                <tr>
+                    <td>{{ turno.tipo }}</td>
+                    <td>{{ turno.fecha }}</td>
+                    <td>{{ turno.usuario_id }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </h2>
+    <h2>
+        {{ data.miCalificacion }}
+        {{ data.calificacion }}
+    </h2>
+</form>
+<form action="{{ url_for('apppersonal.cancelarturno') }}" method="post">
+    <h2>
+        {{ data.cancelarTurno }}
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Tipo</th>
+                    <th>Fecha</th>
+                    <th>Seleccionar</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for turno in data.turnos %}
+                <tr>
+                    <td>{{ turno.tipo }}</td>
+                    <td>{{ turno.fecha }}</td>
+                    <td><input type="radio" name="id_turno" value="{{ turno.id }}"></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <input type="submit" value="Eliminar">
+    </h2>
+</form>
+<form action="{{ url_for('apppersonal.modificar') }}", method="post">
+    <h2>
+        {{ data.modificarCuenta }}
+        <button type="submit">Modificar Cuenta</button>
+    </h2>
+</form>
+<form action="{{ url_for('apppersonal.eliminarpersonal') }}", method="post">
+    <h2>
+        {{ data.eliminarCuenta }}
+        <button type="submit">Eliminar Cuenta</button>
+    </h2>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <p style="color:green">{{ messages[-1] }}</p>
+        {% endif %}
+    {% endwith %}
+</form>
+{% endblock %}

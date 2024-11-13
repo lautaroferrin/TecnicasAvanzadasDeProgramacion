@@ -1,0 +1,15 @@
+{% extends './layout.html' %}
+
+{% block title %}{{ data.titulo }}{% endblock %}
+
+{% block body %}
+<h1>{{ data.titulo }}</h1>
+<form action="{{ url_for('appusuario.sacarturno') }}" method="post">
+    <h2>
+        {{ data.tipo }}
+        <ul>
+            <li><a href="{{ url_for('appturno.sacarmasajes') }}">Masajes</a></li> 
+        </ul>
+    </h2>
+</form>
+{% endblock %}
